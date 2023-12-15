@@ -34,13 +34,34 @@ export default async function handler(
     if (req.method === "POST") {
       updatedFollowingIds.push(userId);
     }
+    try {
+      await prisma.notification.create({
+        data: {
+          body: "someone followed you!",
+          userId,
+        },
+      });
+
+      await prisma.user.update({
+        where: {
+          id: userId,
+        },
+        data: {
+          hasNotifications: true,
+        },
+      });
+    } catch (err) {
+      console.log(err);
+      return res.status(400).end();
+    }
 
     if (req.method === "DELETE") {
       updatedFollowingIds = updatedFollowingIds.filter(
         (followingId) => followingId !== userId
       );
     }
-    // console.log(updatedFollowingIds);    
+
+    // console.log(updatedFollowingIds);
 
     const updatedUser = await prisma.user.update({
       where: {

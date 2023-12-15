@@ -12,6 +12,9 @@ const NotificationsFeed = () => {
     mutateCurrentUser();
   }, [mutateCurrentUser]);
 
+  console.log(fetchedNotifications)
+  console.log(currentUser?.id)
+
   if (fetchedNotifications.length === 0) {
     return (
       <div className="text-neutral-600 text-center p-6 text-xl">
