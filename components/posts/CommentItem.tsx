@@ -4,7 +4,7 @@ import { useCallback, useMemo } from "react";
 import Avatar from "../Avatar";
 
 interface CommentFeedProps {
-  data: Record<string, any>[];
+  data: Record<string, any>;
 }
 
 const CommentItem: React.FC<CommentFeedProps> = ({ data }) => {
